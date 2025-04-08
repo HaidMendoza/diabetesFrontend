@@ -1,0 +1,17 @@
+
+export interface Persona {
+    pregnancies: number;
+    plasmaGlucose: number;
+    bloodPressure: number;
+    skinThickness: number;
+    insulin: number;
+    bmi: number;
+    diabetesPedigreeFunction: number;
+    age: number;
+  }
+  
+  export interface ResultadoPrediccion {
+    persona: Persona;
+    resultado: string;
+  }
+  
