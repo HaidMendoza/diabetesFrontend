@@ -1,62 +1,52 @@
-<div class="info-diabetes-container animate-fade-in">
-    <!-- Título -->
-    <h1 class="text-4xl font-bold text-center text-blue-800 mb-8 animate-slide-down">
-      ¿Qué es la Diabetes?
-    </h1>
-  
-    <!-- Sección 1 -->
-    <div class="section animate-fade-in-up">
-      <div class="text-content">
-        <p class="text-lg mb-4">
-          La <strong>diabetes</strong> es una enfermedad crónica que afecta la forma en que el cuerpo convierte los alimentos en energía. 
-          Cuando comemos, la mayoría de los alimentos se convierten en glucosa, o azúcar, que se libera en el torrente sanguíneo. 
-          Si tienes diabetes, tu cuerpo no produce suficiente insulina o no puede usarla adecuadamente.
-        </p>
-      </div>
-      <div class="image-content">
-        <img src="assets/images/diabetes-explicacion.svg" alt="Explicación de diabetes" class="w-full rounded-xl shadow-lg" />
-      </div>
+<div class="diabetes-container">
+  <h2 class="diabetes-title">Descubre más sobre la Diabetes</h2>
+
+  <div class="card-row">
+    <!-- ¿Qué es la Diabetes? -->
+    <div class="info-card animate-fade-in-left">
+      <h3>¿Qué es la Diabetes?</h3>
+      <p>
+        La <strong>diabetes</strong> es una enfermedad crónica que afecta la forma en que el cuerpo convierte los alimentos en energía.
+        El cuerpo descompone la mayoría de los alimentos en azúcar (glucosa) y los libera en el torrente sanguíneo.
+      </p>
+      <p>
+        Cuando el nivel de azúcar en sangre sube, el páncreas libera insulina. Si tienes diabetes, tu cuerpo no produce suficiente insulina o no puede usarla correctamente.
+        Esto causa un exceso de glucosa en la sangre, lo que puede generar complicaciones a largo plazo si no se trata.
+      </p>
     </div>
-  
-    <!-- Sección: Tipos de Diabetes -->
-    <div class="section reversed animate-fade-in-up">
-      <div class="image-content">
-        <img src="assets/images/tipos-diabetes.svg" alt="Tipos de diabetes" class="w-full rounded-xl shadow-lg" />
-      </div>
-      <div class="text-content">
-        <h2 class="text-2xl font-semibold text-blue-700 mb-3">Tipos de Diabetes</h2>
-        <ul class="list-disc pl-5 text-lg">
-          <li><strong>Tipo 1:</strong> Enfermedad autoinmune donde el cuerpo no produce insulina.</li>
-          <li><strong>Tipo 2:</strong> El cuerpo no usa bien la insulina. Es el tipo más común.</li>
-          <li><strong>Gestacional:</strong> Afecta a algunas mujeres durante el embarazo.</li>
-        </ul>
-      </div>
+
+    <!-- Tipos de Diabetes -->
+    <div class="info-card animate-fade-in">
+      <h3>Tipos de Diabetes</h3>
+      <ul>
+        <li><strong>Tipo 1:</strong> Enfermedad autoinmune. El cuerpo ataca por error las células que producen insulina.</li>
+        <li><strong>Tipo 2:</strong> La más común. El cuerpo no usa la insulina eficientemente.</li>
+        <li><strong>Gestacional:</strong> Aparece durante el embarazo y puede desaparecer tras el parto.</li>
+        <li><strong>Prediabetes:</strong> Niveles de glucosa más altos de lo normal, pero no lo suficiente para ser diabetes.</li>
+      </ul>
+      <p>
+        La detección temprana y el cambio de hábitos pueden prevenir el desarrollo de diabetes tipo 2.
+      </p>
     </div>
-  
-    <!-- Sección: Factores de riesgo -->
-    <div class="section animate-fade-in-up">
-      <div class="text-content">
-        <h2 class="text-2xl font-semibold text-blue-700 mb-3">Factores de Riesgo</h2>
-        <ul class="list-disc pl-5 text-lg">
-          <li>Sobrepeso u obesidad</li>
-          <li>Antecedentes familiares de diabetes</li>
-          <li>Estilo de vida sedentario</li>
-          <li>Presión arterial alta</li>
-          <li>Edad mayor a 45 años</li>
-          <li>Colesterol alto</li>
-        </ul>
-      </div>
-      <div class="image-content">
-        <img src="assets/images/factores-riesgo.svg" alt="Factores de riesgo" class="w-full rounded-xl shadow-lg" />
-      </div>
-    </div>
-  
-    <!-- Botón -->
-    <div class="text-center mt-12 animate-fade-in">
-      <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-all transform hover:scale-105"
-        (click)="irAPrediccion()">
-        Comprueba si tienes diabetes
-      </button>
+
+    <!-- Factores de Riesgo -->
+    <div class="info-card animate-fade-in-right">
+      <h3>Factores de Riesgo</h3>
+      <ul>
+        <li>Sobrepeso u obesidad</li>
+        <li>Antecedentes familiares</li>
+        <li>Vida sedentaria</li>
+        <li>Presión arterial alta</li>
+        <li>Edad mayor a 45 años</li>
+        <li>Colesterol elevado</li>
+        <li>Alimentación poco saludable</li>
+        <li>Estrés crónico</li>
+        <li>Diabetes gestacional previa</li>
+      </ul>
     </div>
   </div>
-  
+
+  <div class="btn-container">
+    <button class="btn-check">🩺 Comprueba si tienes diabetes</button>
+  </div>
+</div>

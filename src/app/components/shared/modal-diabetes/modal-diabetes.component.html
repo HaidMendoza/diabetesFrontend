@@ -1,0 +1,47 @@
+<div class="modal-contenido">
+  <h2 class="modal-titulo">🩺 Diagnóstico de Diabetes</h2>
+
+  <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()" class="formulario-grid">
+    <!-- Fila 1 -->
+    <div class="campo-formulario">
+      <label>Embarazos 🤰</label>
+      <input type="number" formControlName="embarazos" />
+    </div>
+    <div class="campo-formulario">
+      <label>Glucosa 🧪</label>
+      <input type="number" formControlName="glucosa" />
+    </div>
+    <div class="campo-formulario">
+      <label>Presión Arterial 💓</label>
+      <input type="number" formControlName="presionArterial" />
+    </div>
+
+    <!-- Fila 2 -->
+    <div class="campo-formulario">
+      <label>Grosor de piel 🩹</label>
+      <input type="number" formControlName="grosorPiel" />
+    </div>
+    <div class="campo-formulario">
+      <label>Insulina 💉</label>
+      <input type="number" formControlName="insulina" />
+    </div>
+    <div class="campo-formulario">
+      <label>IMC ⚖️</label>
+      <input type="number" formControlName="indiceMasaCorporal" />
+    </div>
+
+    <!-- Fila 3 -->
+    <div class="campo-formulario">
+      <label>Función Diabetes 📊</label>
+      <input type="number" formControlName="funcionDiabetes" />
+    </div>
+    <div class="campo-formulario">
+      <label>Edad 👶</label>
+      <input type="number" formControlName="edad" />
+    </div>
+  </form>
+
+  <button type="submit" [disabled]="formulario.invalid" (click)="enviarFormulario()">
+    Enviar diagnóstico
+  </button>
+</div>

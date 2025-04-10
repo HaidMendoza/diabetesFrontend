@@ -1,96 +1,55 @@
 <div class="contenedor">
-    <!-- Formulario -->
-    <div class="formulario-container">
-      <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
-        <div class="campo-formulario">
-          <label for="embarazos">Número de embarazos</label>
-          <input id="embarazos" type="number" formControlName="embarazos" />
-        </div>
-  
-        <div class="campo-formulario">
-          <label for="glucosa">Nivel de glucosa</label>
-          <input id="glucosa" type="number" formControlName="glucosa" />
-        </div>
-  
-        <div class="campo-formulario">
-          <label for="presionArterial">Presión arterial</label>
-          <input id="presionArterial" type="number" formControlName="presionArterial" />
-        </div>
-  
-        <div class="campo-formulario">
-          <label for="grosorPiel">Grosor del pliegue cutáneo</label>
-          <input id="grosorPiel" type="number" formControlName="grosorPiel" />
-        </div>
-  
-        <div class="campo-formulario">
-          <label for="insulina">Nivel de insulina</label>
-          <input id="insulina" type="number" formControlName="insulina" />
-        </div>
-  
-        <div class="campo-formulario">
-          <label for="indiceMasaCorporal">Índice de masa corporal (IMC)</label>
-          <input id="indiceMasaCorporal" type="number" formControlName="indiceMasaCorporal" />
-        </div>
-  
-        <div class="campo-formulario">
-          <label for="funcionDiabetes">Función del pedigree de la diabetes</label>
-          <input id="funcionDiabetes" type="number" formControlName="funcionDiabetes" />
-        </div>
-  
-        <div class="campo-formulario">
-          <label for="edad">Edad</label>
-          <input id="edad" type="number" formControlName="edad" />
-        </div>
-  
-        <button type="submit">Enviar</button>
-      </form>
-  
-      <!-- Alerta visual de resultado -->
-      <div 
-        class="alerta"
-        *ngIf="mostrarAlerta"
-        [ngClass]="resultadoModelo === 'tested_positive' ? 'positivo' : 'negativo'">
-        {{ resultadoModelo === 'tested_positive' 
-          ? '✅ Resultado positivo: el paciente probablemente tiene diabetes.' 
-          : '✅ Resultado negativo: el paciente probablemente NO tiene diabetes.' }}
-      </div>
+  <nav class="navbar">
+    <h1>Gestión de Predicciones de Diabetes</h1>
+  </nav>
+
+  <div class="acciones-container">
+    <!-- Buscador a la izquierda -->
+    <div class="buscador-container">
+      <input type="text" placeholder="Buscar en el historial..." class="buscador-input" />
     </div>
-  
-    <!-- Tabla de historial -->
-    <div class="tabla-container">
-      <h2>Historial de predicciones</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Embarazos</th>
-            <th>Glucosa</th>
-            <th>Presión</th>
-            <th>Piel</th>
-            <th>Insulina</th>
-            <th>IMC</th>
-            <th>Pedigree</th>
-            <th>Edad</th>
-            <th>Resultado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of historial">
-            <td>{{ item.persona.pregnancies }}</td>
-            <td>{{ item.persona.plasmaGlucose }}</td>
-            <td>{{ item.persona.bloodPressure }}</td>
-            <td>{{ item.persona.skinThickness }}</td>
-            <td>{{ item.persona.insulin }}</td>
-            <td>{{ item.persona.bmi }}</td>
-            <td>{{ item.persona.diabetesPedigreeFunction }}</td>
-            <td>{{ item.persona.age }}</td>
-            <td>
-              <span [ngClass]="item.resultado === 'tested_positive' ? 'positivo' : 'negativo'">
-                {{ item.resultado === 'tested_positive' ? 'Positivo' : 'Negativo' }}
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+
+    <!-- Botones a la derecha -->
+    <div class="botones-acciones">
+      <button (click)="Agregar()">➕ Añadir</button>
+      <button (click)="Eliminar()">🗑️ Eliminar</button>
+      <button (click)="Actualizar()">🔄 Actualizar</button>
     </div>
   </div>
-  
+
+  <div class="tabla-container">
+    <h2>Historial de predicciones</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Embarazos</th>
+          <th>Glucosa</th>
+          <th>Presión</th>
+          <th>Piel</th>
+          <th>Insulina</th>
+          <th>IMC</th>
+          <th>Pedigree</th>
+          <th>Edad</th>
+          <th>Resultado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of historial">
+          <td>{{ item.persona.pregnancies }}</td>
+          <td>{{ item.persona.plasmaGlucose }}</td>
+          <td>{{ item.persona.bloodPressure }}</td>
+          <td>{{ item.persona.skinThickness }}</td>
+          <td>{{ item.persona.insulin }}</td>
+          <td>{{ item.persona.bmi }}</td>
+          <td>{{ item.persona.diabetesPedigreeFunction }}</td>
+          <td>{{ item.persona.age }}</td>
+          <td>
+            <span [ngClass]="item.resultado === 'tested_positive' ? 'positivo' : 'negativo'">
+              {{ item.resultado === 'tested_positive' ? 'Positivo' : 'Negativo' }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

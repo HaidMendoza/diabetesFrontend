@@ -1,0 +1,22 @@
+*{
+    overflow: hidden;
+}
+.main-container {
+    display: flex;
+    height: 100vh; /* Para que ocupe toda la altura */
+    overflow: hidden;
+  }
+  
+  app-sidevar {
+    width: 250px; /* o el ancho que quieras para tu sidebar */
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  }
+  
+  .content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
