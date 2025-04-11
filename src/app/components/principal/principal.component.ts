@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router'; // 👈 Necesario para navegación
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router'; // 👈 Necesario para navegación
 
 @Component({
   selector: 'app-principal',
@@ -11,13 +11,5 @@ import { CommonModule } from '@angular/common';
 })
 export class PrincipalComponent {
 
-  constructor(private router: Router) {}
 
-  irAInformacion(): void {
-    this.router.navigate(['/informacion']); 
-  }
-
-  irAPrediccion(): void {
-    this.router.navigate(['/prediccion']);
-  }
 }

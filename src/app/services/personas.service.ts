@@ -1,22 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Persona } from '../models/persona';
-import { ResultadoPrediccion } from '../models/persona';
+import { Persona, resultadoModelo } from '../models/persona';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PersonaService {
+  //este es el enpoint donde esta la logica para predecir  y obtner el resultado de la openAi|
   private apiUrl = 'http://localhost:8080/api/persona/predecir';
+  //esten es el enpoint para obtner los resuktados de las
   private apiUrlGet = 'http://localhost:8080/api/persona/historial';
+  //este es el enpoint para eliminar todos los campos
+   private apiDelete = 'http://localhost:8080/api/persona/eliminar';
+
 
   constructor(private http: HttpClient) {}
 
-  predecir(persona: Persona): Observable<string> {
-    return this.http.post(this.apiUrl, persona, { responseType: 'text' });
+  //este metodo es el que envia los datos y recibe todo incluso lo de la ia
+  predecir(persona: Persona): Observable<resultadoModelo> {
+    return this.http.post<resultadoModelo>(this.apiUrl, persona);
   }
 
-  Historial(): Observable<ResultadoPrediccion[]> {
-    return this.http.get<ResultadoPrediccion[]>(this.apiUrlGet);
+  // Obtiene el historial desde el back end
+  Historial(): Observable<resultadoModelo[]> {
+    return this.http.get<resultadoModelo[]>(this.apiUrlGet);
   }
+
+  //este servicio es para limpiar todos los campos
+  Eliminar(): Observable<any> {
+    return this.http.delete<any>(this.apiDelete);
+  }
+  
 }

@@ -10,7 +10,8 @@ export interface Persona {
     age: number;
   }
   
-  export interface ResultadoPrediccion {
+  export interface resultadoModelo {
+    recomendacion: any;
     persona: Persona;
     resultado: string;
   }

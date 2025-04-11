@@ -1,26 +1,15 @@
-<aside class="sidebar">
-    <div class="logo">
-      <img src="https://media.istockphoto.com/id/1425722450/es/vector/la-bandera-nacional-del-mundo-venezuela.jpg?s=612x612&w=0&k=20&c=7t24QAgQ1aUfZMv6aRV1O-I_8FU7q8cWGkpdse5bEbA=" alt="Logo médico" />
-      <h2>MediChamo</h2>
-    </div>
-    <nav>
-      <ul>
-        <li routerLink="/Inicio" routerLinkActive="active">
-          <i class="fas fa-home"></i> Inicio
-        </li>
-        <li routerLink="/pacientes" routerLinkActive="active">
-          <i class="fas fa-user-md"></i> Pacientes
-        </li>
-        <li routerLink="/diagnostico" routerLinkActive="active">
-          <i class="fas fa-vials"></i> Diagnóstico
-        </li>
-        <li routerLink="/historial" routerLinkActive="active">
-          <i class="fas fa-history"></i> chatbot
-        </li>
-        <li routerLink="/configuracion" routerLinkActive="active">
-          <i class="fas fa-cog"></i> nuestro algoritmo
-        </li>
-      </ul>
-    </nav>
-  </aside>
-  
+<aside class="sidebar" [class.collapsed]="!isExpanded">
+  <div class="logo" (click)="toggleSidebar()">
+    <img src="https://img.freepik.com/vector-premium/venezuela-icono-vectorial-redondeado-simbolo-circulo-venezolano-colores-bandera-nacional_642540-2091.jpg?semt=ais_hybrid&w=740" alt="Logo médico" />
+    <h2 *ngIf="isExpanded">MediChamo</h2>
+  </div>
+
+  <nav>
+    <ul>
+      <li routerLink="/inicio" routerLinkActive="active">🏠 <span *ngIf="isExpanded">Inicio</span></li>
+      <li routerLink="/pacientes" routerLinkActive="active">🧑‍⚕️ <span *ngIf="isExpanded">Pacientes</span></li>
+      <li routerLink="/algoritmo" routerLinkActive="active">🧪 <span *ngIf="isExpanded">Algoritmo</span></li>
+      <li routerLink="/chatbot" routerLinkActive="active">🤖 <span *ngIf="isExpanded">Chatbot</span></li>
+    </ul>
+  </nav>
+</aside>

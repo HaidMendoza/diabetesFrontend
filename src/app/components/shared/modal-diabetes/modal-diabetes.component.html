@@ -1,47 +1,59 @@
+<div *ngIf="estaCargando$ | async" class="cargando-overlay">
+  <div class="spinner"></div>
+  <p>⏳ Cargando, por favor espere...</p>
+</div>
+
+<div class="modal-backdrop" (click)="cerrar()"></div>
+
 <div class="modal-contenido">
-  <h2 class="modal-titulo">🩺 Diagnóstico de Diabetes</h2>
+  <h2 class="modal-titulo">🩺Formulario de Predicción de Diabetes</h2>
 
-  <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()" class="formulario-grid">
-    <!-- Fila 1 -->
-    <div class="campo-formulario">
-      <label>Embarazos 🤰</label>
-      <input type="number" formControlName="embarazos" />
-    </div>
-    <div class="campo-formulario">
-      <label>Glucosa 🧪</label>
-      <input type="number" formControlName="glucosa" />
-    </div>
-    <div class="campo-formulario">
-      <label>Presión Arterial 💓</label>
-      <input type="number" formControlName="presionArterial" />
+  <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
+    <div class="formulario-grid">
+      <div class="campo-formulario">
+        <label for="embarazos">Número de Embarazos <span class="emoji">🤰</span></label>
+        <input id="embarazos" formControlName="embarazos" type="number" />
+      </div>
+      <div class="campo-formulario">
+        <label for="glucosa">Nivel de Glucosa <span class="emoji">🍩</span></label>
+        <input id="glucosa" formControlName="glucosa" type="number" />
+      </div>
+      <div class="campo-formulario">
+        <label for="presionArterial">Presión Arterial <span class="emoji">💓</span></label>
+        <input id="presionArterial" formControlName="presionArterial" type="number" />
+      </div>
+      <div class="campo-formulario">
+        <label for="grosorPiel">Grosor de la Piel <span class="emoji">🌿</span></label>
+        <input id="grosorPiel" formControlName="grosorPiel" type="number" />
+      </div>
+      <div class="campo-formulario">
+        <label for="insulina">Nivel de Insulina <span class="emoji">💉</span></label>
+        <input id="insulina" formControlName="insulina" type="number" />
+      </div>
+      <div class="campo-formulario">
+        <label for="indiceMasaCorporal">Índice de Masa Corporal <span class="emoji">⚖️</span></label>
+        <input id="indiceMasaCorporal" formControlName="indiceMasaCorporal" type="number" />
+      </div>
+      <div class="campo-formulario">
+        <label for="funcionDiabetes">Función Pedigrí de la Diabetes <span class="emoji">🧬</span></label>
+        <input id="funcionDiabetes" formControlName="funcionDiabetes" type="number" />
+      </div>
+      <div class="campo-formulario">
+        <label for="edad">Edad <span class="emoji">🎂</span></label>
+        <input id="edad" formControlName="edad" type="number" />
+      </div>
     </div>
 
-    <!-- Fila 2 -->
-    <div class="campo-formulario">
-      <label>Grosor de piel 🩹</label>
-      <input type="number" formControlName="grosorPiel" />
-    </div>
-    <div class="campo-formulario">
-      <label>Insulina 💉</label>
-      <input type="number" formControlName="insulina" />
-    </div>
-    <div class="campo-formulario">
-      <label>IMC ⚖️</label>
-      <input type="number" formControlName="indiceMasaCorporal" />
-    </div>
-
-    <!-- Fila 3 -->
-    <div class="campo-formulario">
-      <label>Función Diabetes 📊</label>
-      <input type="number" formControlName="funcionDiabetes" />
-    </div>
-    <div class="campo-formulario">
-      <label>Edad 👶</label>
-      <input type="number" formControlName="edad" />
-    </div>
+    <button type="submit" [disabled]="formulario.invalid">Predecir</button>
   </form>
 
-  <button type="submit" [disabled]="formulario.invalid" (click)="enviarFormulario()">
-    Enviar diagnóstico
-  </button>
+  <div *ngIf="resultadoModelo" class="resultado-aparece">
+    <h3>🧪 Resultado del Test</h3>
+    <p>El resultado de la predicción es: <strong>{{ resultadoModelo }}</strong></p>
+  </div>
+
+  <div *ngIf="recomendacion" class="recomendacion-box">
+    <h3>💡 Recomendación</h3>
+    <pre class="recomendacion-texto">{{ recomendacion }}</pre>
+  </div>
 </div>

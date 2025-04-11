@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PersonaService } from '../../../services/personas.service';
-import { Persona, ResultadoPrediccion } from '../../../models/persona';
+import { Persona, resultadoModelo } from '../../../models/persona';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { CargaService } from '../../../services/carga.service';
 
 @Component({
   selector: 'app-modal-diabetes',
@@ -24,14 +25,16 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class ModalDiabetesComponent implements OnInit {
   formulario!: FormGroup;
-  resultadoModelo: string = '';
+  resultadoModelo!: string;
+  recomendacion!: any;
   mostrarAlerta: boolean = false;
-  historial: ResultadoPrediccion[] = [];
+  historial: resultadoModelo[] = [];
 
   constructor(
     private fb: FormBuilder,
     private personaService: PersonaService,
-    private dialogRef: MatDialogRef<ModalDiabetesComponent>
+    private dialogRef: MatDialogRef<ModalDiabetesComponent>,
+    private cargaService: CargaService
   ) {}
 
   ngOnInit(): void {
@@ -62,38 +65,49 @@ export class ModalDiabetesComponent implements OnInit {
         age: this.formulario.value.edad
       };
 
+      this.cargaService.mostrarCarga();
+
       this.personaService.predecir(datos).subscribe({
         next: (respuesta) => {
-          this.resultadoModelo = respuesta;
+          this.resultadoModelo = respuesta.resultado;
+          this.recomendacion = respuesta.recomendacion;
           this.mostrarAlerta = true;
           this.obtenerHistorial();
+          console.log('Resultado:', this.resultadoModelo);
+          console.log('Recomendación:', this.recomendacion);
         },
         error: (error) => {
           console.error('Error al predecir:', error);
           alert('Ocurrió un error al predecir.');
-        }
+        },
+        complete: () => this.cargaService.ocultarCarga()
       });
     } else {
-      this.resultadoModelo = '';
       this.formulario.markAllAsTouched();
       alert('Formulario inválido.');
     }
-    this.cerrarModal()
   }
 
   obtenerHistorial() {
+    this.cargaService.mostrarCarga();
+
     this.personaService.Historial().subscribe({
       next: (data) => {
         this.historial = data;
       },
       error: (error) => {
         console.error('Error al obtener historial:', error);
-      }
+      },
+      complete: () => this.cargaService.ocultarCarga()
     });
   }
 
- 
-  cerrarModal(): void {
-    this.dialogRef.close(); // Cierra el modal
+  cerrar() {
+    this.dialogRef.close();
+  }
+
+  // Para usar el observable en la plantilla HTML
+  get estaCargando$() {
+    return this.cargaService.estaCargando$;
   }
 }
