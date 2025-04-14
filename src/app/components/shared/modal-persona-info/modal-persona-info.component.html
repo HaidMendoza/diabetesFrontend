@@ -1,0 +1,58 @@
+<div class="modal-container">
+  <div class="ficha-paciente">
+    <h3 class="titulo-ficha" (click)="cerrarModal()">🩺 Información del Paciente</h3>
+
+    <div class="grid-campos">
+      <div class="campo-paciente">
+        <span class="label">👤 Nombre:</span>
+        <span class="valor">{{ persona.nombre }}</span>
+      </div>
+      <div class="campo-paciente">
+        <span class="label">🤰 Embarazos:</span>
+        <span class="valor">{{ persona.pregnancies }}</span>
+      </div>
+      <div class="campo-paciente">
+        <span class="label">🩸 Glucosa:</span>
+        <span class="valor">{{ persona.plasmaGlucose }} mg/dL</span>
+      </div>
+      <div class="campo-paciente">
+        <span class="label">💓 Presión arterial:</span>
+        <span class="valor">{{ persona.bloodPressure }} mmHg</span>
+      </div>
+      <div class="campo-paciente">
+        <span class="label">📏 Grosor de piel:</span>
+        <span class="valor">{{ persona.skinThickness }} mm</span>
+      </div>
+      <div class="campo-paciente">
+        <span class="label">💉 Insulina:</span>
+        <span class="valor">{{ persona.insulin }} μU/mL</span>
+      </div>
+      <div class="campo-paciente">
+        <span class="label">⚖️ IMC:</span>
+        <span class="valor">{{ persona.bmi }}</span>
+      </div>
+      <div class="campo-paciente">
+        <span class="label">🧬 Carga genética:</span>
+        <span class="valor">{{ persona.diabetesPedigreeFunction }}</span>
+      </div>
+      <div class="campo-paciente">
+        <span class="label">🎂 Edad:</span>
+        <span class="valor">{{ persona.age }} años</span>
+      </div>
+    </div>
+
+   <!-- Sección del Resultado -->
+<div class="resultado" *ngIf="persona.resultado">
+  <h4>📊 Resultado de la Predicción:</h4>
+  <p>{{ persona.resultado }}</p>
+</div>
+
+<!-- Sección de Recomendación -->
+<div >
+  <h4>🧠 Recomendación de la IA:</h4>
+  <p>{{ persona.recomendacion }}</p>
+</div>
+
+
+  </div>
+</div>

@@ -11,6 +11,10 @@
   <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
     <div class="formulario-grid">
       <div class="campo-formulario">
+        <label for="nombre">Nombre <span class="emoji">🧑</span></label>
+        <input id="nombre" formControlName="nombre"/>
+      </div>
+      <div class="campo-formulario">
         <label for="embarazos">Número de Embarazos <span class="emoji">🤰</span></label>
         <input id="embarazos" formControlName="embarazos" type="number" />
       </div>
@@ -44,6 +48,7 @@
       </div>
     </div>
 
+
     <button type="submit" [disabled]="formulario.invalid">Predecir</button>
   </form>
 
@@ -56,4 +61,5 @@
     <h3>💡 Recomendación</h3>
     <pre class="recomendacion-texto">{{ recomendacion }}</pre>
   </div>
+
 </div>

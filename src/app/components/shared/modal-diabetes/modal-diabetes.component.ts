@@ -39,6 +39,7 @@ export class ModalDiabetesComponent implements OnInit {
 
   ngOnInit(): void {
     this.formulario = this.fb.group({
+      nombre: [null, [Validators.required, Validators.pattern(/^[a-zA-ZÁÉÍÓÚáéíóúñÑ\s]+$/)]],
       embarazos: [null, [Validators.required, Validators.min(0), Validators.max(20)]],
       glucosa: [null, [Validators.required, Validators.min(0), Validators.max(300)]],
       presionArterial: [null, [Validators.required, Validators.min(0), Validators.max(200)]],
@@ -54,7 +55,9 @@ export class ModalDiabetesComponent implements OnInit {
 
   enviarFormulario(): void {
     if (this.formulario.valid) {
+
       const datos: Persona = {
+        nombre:this.formulario.value.nombre,
         pregnancies: this.formulario.value.embarazos,
         plasmaGlucose: this.formulario.value.glucosa,
         bloodPressure: this.formulario.value.presionArterial,
@@ -62,7 +65,7 @@ export class ModalDiabetesComponent implements OnInit {
         insulin: this.formulario.value.insulina,
         bmi: this.formulario.value.indiceMasaCorporal,
         diabetesPedigreeFunction: this.formulario.value.funcionDiabetes,
-        age: this.formulario.value.edad
+        age: this.formulario.value.edad,
       };
 
       this.cargaService.mostrarCarga();
@@ -106,7 +109,6 @@ export class ModalDiabetesComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  // Para usar el observable en la plantilla HTML
   get estaCargando$() {
     return this.cargaService.estaCargando$;
   }

@@ -1,3 +1,8 @@
+<div *ngIf="cargaService.estaCargando$ | async" class="cargando-overlay">
+  <div class="spinner"></div>
+  <p>⏳ Cargando, por favor espere...</p>
+</div>
+
 <div class="contenedor">
   <nav class="navbar">
     <h1>Gestión de Predicciones de Diabetes</h1>
@@ -6,7 +11,7 @@
   <div class="acciones-container">
     <!-- Buscador a la izquierda -->
     <div class="buscador-container">
-      <input type="text" placeholder="Buscar en el historial..." class="buscador-input" />
+      <input type="text" placeholder="Buscar en el historial..." class="buscador-input" [formControl]="nombreBuscado" />
     </div>
 
     <!-- Botones a la derecha -->
@@ -22,6 +27,7 @@
     <table>
       <thead>
         <tr>
+          <th>Nombre</th>
           <th>Embarazos</th>
           <th>Glucosa</th>
           <th>Presión</th>
@@ -34,7 +40,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of historial">
+        <!-- Filtramos el historial utilizando la variable nombreBuscado -->
+        <tr *ngFor="let item of historialFiltrado"  (click)="SeleccionarPersonas(item.persona)">
+          <td>{{ item.persona.nombre }}</td> <!-- Muestra el nombre de la persona -->
           <td>{{ item.persona.pregnancies }}</td>
           <td>{{ item.persona.plasmaGlucose }}</td>
           <td>{{ item.persona.bloodPressure }}</td>
@@ -52,9 +60,5 @@
       </tbody>
     </table>
   </div>
-</div>
-<div *ngIf="cargaService.estaCargando$ | async" class="cargando-overlay">
-  <div class="spinner"></div>
-  <p>⏳ Cargando, por favor espere...</p>
 </div>
 

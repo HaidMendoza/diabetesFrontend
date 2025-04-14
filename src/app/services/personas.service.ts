@@ -13,6 +13,9 @@ export class PersonaService {
   private apiUrlGet = 'http://localhost:8080/api/persona/historial';
   //este es el enpoint para eliminar todos los campos
    private apiDelete = 'http://localhost:8080/api/persona/eliminar';
+   //variable para obetner los datos y abrir la modal
+   private personaSeleccionada:any = "";
+   private recomendacion:any="";
 
 
   constructor(private http: HttpClient) {}
@@ -31,5 +34,21 @@ export class PersonaService {
   Eliminar(): Observable<any> {
     return this.http.delete<any>(this.apiDelete);
   }
+
+  setPersonaSeleccionada(Persona: Persona) {
+    this.personaSeleccionada = Persona;  // Asignar la persona a la variable
+  }
+  getPersonaSeleccionada(): any{
+    return this.personaSeleccionada;
+  }
+
+  setRecomendacion(Recomendación: resultadoModelo):any{
+    this.recomendacion = Recomendación;
+
+  }
+  getRecomendacion():any{
+    return this.recomendacion;
+  }
+
   
 }

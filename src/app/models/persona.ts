@@ -1,5 +1,6 @@
 
 export interface Persona {
+    nombre:string;
     pregnancies: number;
     plasmaGlucose: number;
     bloodPressure: number;
