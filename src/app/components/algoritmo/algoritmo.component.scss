@@ -1,11 +1,22 @@
+// Variables
+$primary-color: #003049;
+$secondary-color: #0077b6;
+$tertiary-color: #00b4d8;
+$light-blue: #f1f9ff;
+$light-turquoise: #e0f7fa;
+$icon-color: #0096c7;
+$dark-blue: #023e8a;
+$card-background: white;
+$shadow-color: rgba(0, 0, 0, 0.1);
+
+// Estilos generales
 .contenedor-explicacion {
   margin-left: 60px;
   padding: 60px;
   font-family: 'Segoe UI', sans-serif;
-  color: #003049;
-  background: linear-gradient(to right, #f1f9ff, #e0f7fa);
+  color: $primary-color;
+  background: linear-gradient(to right, $light-blue, $light-turquoise);
   border-radius: 20px;
-  
 }
 
 .titulo-principal {
@@ -13,11 +24,11 @@
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 0.2rem;
-  color: #0077b6;
+  color: $secondary-color;
   animation: fadeInDown 1s ease-in-out;
 }
 
-/* Grid de tarjetas */
+// Grid de tarjetas
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -25,46 +36,46 @@
   padding-bottom: 30px;
 }
 
-/* Card individual */
+// Card individual
 .card {
-  background: white;
+  background: $card-background;
   border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 30px $shadow-color;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   position: relative;
   overflow: hidden;
-  border-left: 6px solid #00b4d8;
+  border-left: 6px solid $tertiary-color;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+  }
 }
 
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
-}
-
-/* Iconos dentro de las tarjetas */
+// Iconos dentro de las tarjetas
 .icono-card {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: #0096c7;
+  color: $icon-color;
   animation: pulse 2s infinite;
 }
 
-/* Título dentro de las tarjetas */
+// Título dentro de las tarjetas
 .card h3 {
   font-size: 1.3rem;
-  color: #023e8a;
+  color: $dark-blue;
   margin-bottom: 0.8rem;
 }
 
-/* Texto dentro de las tarjetas */
+// Texto dentro de las tarjetas
 .card p {
   font-size: 1rem;
   color: #333;
   line-height: 1.6;
 }
 
-/* Animaciones de entrada */
+// Animaciones de entrada
 @keyframes fadeInUp {
   from {
     transform: translateY(30px);
@@ -93,6 +104,7 @@
   100% { transform: scale(1); opacity: 1; }
 }
 
+// Clases animadas
 .animada {
   animation: fadeInUp 1s ease-out both;
 }
@@ -102,12 +114,12 @@
 .delay-3 { animation-delay: 0.6s; }
 .delay-4 { animation-delay: 0.8s; }
 .delay-5 { animation-delay: 1s; }
-.delay-6 {animation-delay: 1.4s;}
+.delay-6 { animation-delay: 1.4s; }
 
-/* Sidebar */
+// Sidebar
 aside.sidebar {
   width: 250px;
-  background-color: #003049;
+  background-color: $primary-color;
   color: white;
   padding: 1rem;
   position: fixed;
@@ -116,41 +128,41 @@ aside.sidebar {
   left: 0;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   z-index: 100;
-}
 
-aside.sidebar .logo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 2rem;
-}
+  .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
 
-aside.sidebar .logo img {
-  max-width: 150px;
-  margin-bottom: 1rem;
-}
+    img {
+      max-width: 150px;
+      margin-bottom: 1rem;
+    }
+  }
 
-aside.sidebar nav ul {
-  list-style: none;
-  padding: 0;
-}
+  nav ul {
+    list-style: none;
+    padding: 0;
+  }
 
-aside.sidebar nav ul li {
-  padding: 1rem;
-  text-align: center;
-}
+  nav ul li {
+    padding: 1rem;
+    text-align: center;
 
-aside.sidebar nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-size: 1.2rem;
-}
+    a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
 
-aside.sidebar nav ul li.active a {
-  font-weight: bold;
-  color: #00b4d8;
-}
+    &.active a {
+      font-weight: bold;
+      color: $tertiary-color;
+    }
 
-aside.sidebar nav ul li:hover {
-  background-color: #0077b6;
+    &:hover {
+      background-color: $secondary-color;
+    }
+  }
 }

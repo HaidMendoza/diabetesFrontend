@@ -7,23 +7,24 @@ import { ModalDiabetesComponent } from '../shared/modal-diabetes/modal-diabetes.
 import { ChangeDetectorRef } from '@angular/core';
 import { CargaService } from '../../services/carga.service';
 import { NgModule } from '@angular/core';
-import { FormControl } from '@angular/forms'; // Importamos FormControl
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ModalPersonaInfoComponent } from '../shared/modal-persona-info/modal-persona-info.component';
-
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule, MatDialogModule,ReactiveFormsModule],
+  imports: [CommonModule, MatDialogModule, ReactiveFormsModule],
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.scss']
 })
 export class InicioComponent implements OnInit {
+  // Variables
   historial: resultadoModelo[] = [];
+  nombreBuscado: FormControl = new FormControl('');
+  recomendacion!: any;
+  mostrarAlerta: boolean = false;
+  toastMessage: string = '';
   dialogRef: any;
-  nombreBuscado: FormControl = new FormControl('');  // Usamos FormControl para el campo de búsqueda
-  recomendacion!:any;
 
   constructor(
     private personaServices: PersonaService,
@@ -34,15 +35,14 @@ export class InicioComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerHistorial();
-
-    // Suscribirse a los cambios del FormControl para filtrar automáticamente
     this.nombreBuscado.valueChanges.subscribe(() => {
-      this.cdRef.detectChanges(); // Actualiza la vista
+      this.cdRef.detectChanges();
     });
   }
 
+  // Métodos de manejo de historial
   obtenerHistorial() {
-    this.cargaService.mostrarCarga(); // Mostrar carga
+    this.cargaService.mostrarCarga();  // Mostrar carga al empezar la operación
     this.personaServices.Historial().subscribe({
       next: (data) => {
         this.historial = data;
@@ -51,11 +51,19 @@ export class InicioComponent implements OnInit {
         console.error('Error al obtener historial:', error);
       },
       complete: () => {
-        this.cargaService.ocultarCarga(); // Ocultar carga
+        this.cargaService.ocultarCarga();  // Ocultar carga después de completar
       }
     });
   }
 
+  get historialFiltrado() {
+    const nombreBuscadoLower = this.nombreBuscado.value.toLowerCase();
+    return this.historial.filter(item =>
+      item.persona.nombre.toLowerCase().includes(nombreBuscadoLower)
+    );
+  }
+
+  // Métodos de manejo de modales
   AbrirModal() {
     const dialogRef = this.dialog.open(ModalDiabetesComponent, {
       disableClose: false,
@@ -66,59 +74,82 @@ export class InicioComponent implements OnInit {
     });
   }
 
+  SeleccionarPersonas(Persona: Persona) {
+    this.personaServices.setPersonaSeleccionada(Persona);
+    const dialogRef = this.dialog.open(ModalPersonaInfoComponent, {
+      disableClose: false,
+      panelClass: 'custom-modal-panel',
+      backdropClass: 'custom-backdrop'
+    });
+    this.enviarRecomendacion(this.recomendacion);
+  }
+
+  cerrarModal(): void {
+    this.dialogRef.close();
+  }
+
+  // Métodos de acción
   Agregar() {
     this.AbrirModal();
   }
+
   Eliminar() {
-    if (!confirm('¿Estás seguro de que quieres eliminar todo el historial?')) return;
-  
-    this.cargaService.mostrarCarga(); // Mostrar carga
+    this.mostrarAlerta = true;
+  }
+
+  ConfirmarEliminar() {
+    this.mostrarAlerta = false;
+    this.cargaService.mostrarCarga();  // Mostrar carga mientras eliminamos el historial
     this.personaServices.Eliminar().subscribe({
       next: (response) => {
-        console.log('Respuesta del backend:', response); // Verificar la respuesta
-        alert("🧹 Todos los campos han sido limpiados correctamente");
-        this.obtenerHistorial(); // Recargar la tabla después de la eliminación
+        console.log('Historial eliminado con éxito:', response);
+        alert('🧹 Todos los campos han sido limpiados correctamente');
+        this.obtenerHistorial();  // Recargar historial después de eliminar
       },
       error: (error) => {
         console.error('Error al eliminar historial:', error);
       },
       complete: () => {
-        this.cargaService.ocultarCarga(); // Ocultar carga
+        this.cargaService.ocultarCarga();  // Ocultar carga después de completar la operación
       }
     });
   }
-  
 
   Actualizar() {
     console.log('Actualizar presionado');
   }
 
-  // Método para filtrar por nombre
-  get historialFiltrado() {
-    const nombreBuscadoLower = this.nombreBuscado.value.toLowerCase();  // Convertir a minúsculas para una comparación no sensible a mayúsculas
-    return this.historial.filter(item =>
-      item.persona.nombre.toLowerCase().includes(nombreBuscadoLower)
-    );
+  // Métodos de notificación
+  showToast() {
+    this.toastMessage = 'Persona añadida correctamente!';
+    setTimeout(() => {
+      this.toastMessage = '';
+    }, 3000);
   }
 
-  cerrarModal(): void {
-    this.dialogRef.close(); // Cierra el modal
-  }
-
-  //metodo para abrir la modal con la infromacion del paciente
-  SeleccionarPersonas(Persona:Persona){
-    this.personaServices.setPersonaSeleccionada(Persona);
-    const dialogRef = this.dialog.open(ModalPersonaInfoComponent,
-       {disableClose: false,
-        panelClass: 'custom-modal-panel',
-        backdropClass: 'custom-backdrop'
-    
+  agregarPersona(persona: Persona) {
+    this.cargaService.mostrarCarga();  // Mostrar carga mientras procesamos
+    this.personaServices.predecir(persona).subscribe({
+      next: (response) => {
+        console.log('Persona añadida correctamente:', response);
+        this.obtenerHistorial();
+        this.showToast();  // Llamar al toast para mostrar la notificación
+      },
+      error: (error) => {
+        console.error('Error al añadir persona:', error);
+      },
+      complete: () => {
+        this.cargaService.ocultarCarga();  // Ocultar carga después de completar
+      }
     });
-    this.enviarRecomendacion(this.recomendacion);
   }
-  enviarRecomendacion(recomendacion:resultadoModelo){
-    this.personaServices.setRecomendacion(recomendacion)
 
+  // Otros métodos
+  enviarRecomendacion(recomendacion: any) {
+    console.log(recomendacion);
   }
-  
+
+  cancelarEliminacion() {
+    this.mostrarAlerta = false;
+  }
 }

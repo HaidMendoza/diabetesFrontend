@@ -1,3 +1,8 @@
+<div *ngIf="cargaService.estaCargando$ | async" class="cargando-overlay">
+  <div class="spinner"></div>
+  <p>⏳ Cargando, por favor espere...</p>
+</div>
+
 <div class="main-container">
     <app-sidevar></app-sidevar>
   

@@ -1,19 +1,26 @@
-<div *ngIf="estaCargando$ | async" class="cargando-overlay">
-  <div class="spinner"></div>
-  <p>⏳ Cargando, por favor espere...</p>
-</div>
 <aside class="sidebar" [class.collapsed]="!isExpanded">
   <div class="logo" (click)="toggleSidebar()">
-    <img src="https://img.freepik.com/vector-premium/venezuela-icono-vectorial-redondeado-simbolo-circulo-venezolano-colores-bandera-nacional_642540-2091.jpg?semt=ais_hybrid&w=740" alt="Logo médico" />
+    <img
+      src="https://img.freepik.com/vector-premium/venezuela-icono-vectorial-redondeado-simbolo-circulo-venezolano-colores-bandera-nacional_642540-2091.jpg?semt=ais_hybrid&w=740"
+      alt="Logo médico"
+    />
     <h2 *ngIf="isExpanded">MediChamo</h2>
   </div>
 
   <nav>
     <ul>
-      <li routerLink="/inicio" routerLinkActive="active">🏠 <span *ngIf="isExpanded">Inicio</span></li>
-      <li routerLink="/pacientes" routerLinkActive="active">🧑‍⚕️ <span *ngIf="isExpanded">Pacientes</span></li>
-      <li routerLink="/algoritmo" routerLinkActive="active">🧪 <span *ngIf="isExpanded">Algoritmo</span></li>
-      <li routerLink="/chatbot" routerLinkActive="active">🤖 <span *ngIf="isExpanded">Chatbot</span></li>
+      <li routerLink="/inicio" routerLinkActive="active">
+        🏠 <span *ngIf="isExpanded">Inicio</span>
+      </li>
+      <li routerLink="/pacientes" routerLinkActive="active">
+        🧑‍⚕️ <span *ngIf="isExpanded">Pacientes</span>
+      </li>
+      <li routerLink="/algoritmo" routerLinkActive="active">
+        🧪 <span *ngIf="isExpanded">Algoritmo</span>
+      </li>
+      <li routerLink="/chatbot" routerLinkActive="active">
+        🤖 <span *ngIf="isExpanded">Chatbot</span>
+      </li>
     </ul>
   </nav>
 </aside>

@@ -34,7 +34,7 @@ export class ModalDiabetesComponent implements OnInit {
     private fb: FormBuilder,
     private personaService: PersonaService,
     private dialogRef: MatDialogRef<ModalDiabetesComponent>,
-    private cargaService: CargaService
+    public cargaService: CargaService
   ) {}
 
   ngOnInit(): void {

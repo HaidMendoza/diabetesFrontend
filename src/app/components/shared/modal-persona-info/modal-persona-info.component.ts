@@ -35,7 +35,8 @@ export class ModalPersonaInfoComponent implements OnInit {
   }
   
 
-  cerrarModal(): void {
+ 
+  cerrar() {
     this.dialogRef.close();
   }
 }

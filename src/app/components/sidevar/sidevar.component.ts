@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CargaService } from '../../services/carga.service';
 import { Observable } from 'rxjs';
@@ -12,27 +12,26 @@ import { Observable } from 'rxjs';
   styleUrls: ['./sidevar.component.scss']
 })
 export class SidevarComponent implements OnInit {
-  isExpanded = true; // Sidebar comenzará expandido
-  estaCargando$!: Observable<boolean>; // Declaramos como Observable, no inicializamos directamente aquí
+  isExpanded: boolean = true; // Sidebar comenzará expandido
+  estaCargando$!: Observable<boolean>; // Observable para la animación de carga
 
   constructor(private cargaService: CargaService) {}
 
   ngOnInit(): void {
-    this.estaCargando$ = this.cargaService.estaCargando$; // Asignamos en ngOnInit para evitar el error
+    // Asignamos el observable del servicio en OnInit
+    this.estaCargando$ = this.cargaService.estaCargando$;
   }
 
-  toggleSidebar() {
+  toggleSidebar(): void {
     this.isExpanded = !this.isExpanded;
   }
 
-  simularCarga() {
-    // Activar carga
+  simularCarga(): void {
     this.cargaService.mostrarCarga();
 
-    // Simulamos una acción con un setTimeout, como si fuera una petición HTTP
+    // Simula una acción como una petición HTTP
     setTimeout(() => {
-      // Acción completada, ocultamos la carga
       this.cargaService.ocultarCarga();
-    }, 3000); // Por ejemplo, espera 3 segundos para ocultar la carga
+    }, 3000);
   }
 }

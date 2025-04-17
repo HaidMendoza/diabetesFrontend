@@ -1,17 +1,21 @@
-<div *ngIf="cargaService.estaCargando$ | async" class="cargando-overlay">
-  <div class="spinner"></div>
-  <p>⏳ Cargando, por favor espere...</p>
-</div>
-
 <div class="contenedor">
+  
+  <!-- Barra de navegación -->
   <nav class="navbar">
     <h1>Gestión de Predicciones de Diabetes</h1>
   </nav>
 
+  <!-- Contenedor de acciones (buscador y botones) -->
   <div class="acciones-container">
+    
     <!-- Buscador a la izquierda -->
     <div class="buscador-container">
-      <input type="text" placeholder="Buscar en el historial..." class="buscador-input" [formControl]="nombreBuscado" />
+      <input 
+        type="text" 
+        placeholder="Buscar en el historial..." 
+        class="buscador-input" 
+        [formControl]="nombreBuscado" 
+      />
     </div>
 
     <!-- Botones a la derecha -->
@@ -22,6 +26,7 @@
     </div>
   </div>
 
+  <!-- Tabla de historial de predicciones -->
   <div class="tabla-container">
     <h2>Historial de predicciones</h2>
     <table>
@@ -41,8 +46,12 @@
       </thead>
       <tbody>
         <!-- Filtramos el historial utilizando la variable nombreBuscado -->
-        <tr *ngFor="let item of historialFiltrado"  (click)="SeleccionarPersonas(item.persona)">
-          <td>{{ item.persona.nombre }}</td> <!-- Muestra el nombre de la persona -->
+        <tr 
+          *ngFor="let item of historialFiltrado" 
+          (click)="SeleccionarPersonas(item.persona)" 
+          style="cursor: pointer;">
+          
+          <td>{{ item.persona.nombre }}</td>
           <td>{{ item.persona.pregnancies }}</td>
           <td>{{ item.persona.plasmaGlucose }}</td>
           <td>{{ item.persona.bloodPressure }}</td>
@@ -51,6 +60,8 @@
           <td>{{ item.persona.bmi }}</td>
           <td>{{ item.persona.diabetesPedigreeFunction }}</td>
           <td>{{ item.persona.age }}</td>
+          
+          <!-- Resultado: Positivo o Negativo -->
           <td>
             <span [ngClass]="item.resultado === 'tested_positive' ? 'positivo' : 'negativo'">
               {{ item.resultado === 'tested_positive' ? 'Positivo' : 'Negativo' }}
@@ -62,3 +73,13 @@
   </div>
 </div>
 
+<!-- Alerta estilizada de confirmación -->
+<div class="alerta-confirmacion" *ngIf="mostrarAlerta">
+  <div class="alerta-contenido">
+    <h3>¿Estás seguro de que quieres eliminar todo el historial?</h3>
+    <div class="alerta-botones">
+      <button (click)="ConfirmarEliminar()">✅ Sí, eliminar</button>
+      <button (click)="cancelarEliminacion()">❌ No</button>
+    </div>
+  </div>
+</div>
